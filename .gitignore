@@ -1,0 +1,15 @@
+# OS & Editor Files
+.DS_Store
+Thumbs.db
+*.tmp
+*.bak
+.vscode/
+.idea/
+
+# Node / Environment (if any)
+node_modules/
+.env
+
+# Scratch and test files
+scratch/
+temp/
