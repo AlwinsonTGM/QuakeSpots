@@ -32,7 +32,11 @@
 
     <!-- Tab Navigation Switcher -->
     <nav class="nav-pill-tabs">
-      <button class="nav-pill-btn active" data-view="gis">
+      <button class="nav-pill-btn active" data-view="home">
+        <span class="material-symbols-rounded" style="font-size:16px;">home</span>
+        Home
+      </button>
+      <button class="nav-pill-btn" data-view="gis">
         <span class="material-symbols-rounded" style="font-size:16px;">public</span>
         Interactive Spatial Map
       </button>
@@ -48,7 +52,7 @@
         <span class="material-symbols-rounded" style="font-size:16px;">fullscreen</span>
         Fullscreen Map
       </button>
-      <a href="quakespots3.html" target="_blank" class="btn-material btn-material-outline" title="Open Standalone Map">
+      <a href="map.html" target="_blank" class="btn-material btn-material-outline" title="Open Standalone Map">
         <span class="material-symbols-rounded" style="font-size:16px;">open_in_new</span>
         Open Standalone
       </a>
@@ -60,9 +64,104 @@
   </header>
 
   <!-- ==========================================================================
+       VIEW 0: HOMEPAGE — HAZARD ASSESSMENT ENTRY (HazardHunter-style flow)
+       ========================================================================== -->
+  <main id="view-home" class="view-section active">
+    <div class="portal-container home-container">
+
+      <div class="home-hero">
+        <div class="home-crest" title="QuakeSpots">
+          <span class="material-symbols-rounded">travel_explore</span>
+        </div>
+        <h1 class="home-title"><span class="home-title-navy">Quake</span><span class="home-title-brass">Spots</span><span class="home-title-navy">PH</span></h1>
+        <p class="home-tagline">HAZARD ASSESSMENT AT YOUR FINGERTIPS</p>
+
+        <div class="home-search-wrap">
+          <div class="home-search-bar">
+            <input id="homeSearchInput" type="text" placeholder="Type a location to start hazard assessment" autocomplete="off">
+            <button id="homeSearchBtn">
+              <span class="material-symbols-rounded" style="font-size:17px;">search</span>
+              Search
+            </button>
+          </div>
+          <div id="homeSearchResults" class="home-search-results"></div>
+          <p class="home-search-note">Place search via OpenStreetMap Nominatim, bounded to the Philippines. Try "Bacolod City", "Taal Volcano", or "Marikina".</p>
+        </div>
+
+        <div class="home-btn-row">
+          <button class="home-btn" id="btnHomeLocate" title="Center the map on your GPS position">
+            <span class="material-symbols-rounded" style="font-size:16px;">my_location</span>
+            Use Current Location
+          </button>
+          <button class="home-btn" id="btnHomeCoords" title="Jump to exact coordinates">
+            <span class="material-symbols-rounded" style="font-size:16px;">pin_drop</span>
+            Use Coordinates
+          </button>
+        </div>
+
+        <div class="home-coords-panel" id="homeCoordsPanel" hidden>
+          <div class="home-coords-inputs">
+            <label>Latitude
+              <input id="coordLat" type="text" inputmode="decimal" placeholder="e.g. 14.5995">
+            </label>
+            <label>Longitude
+              <input id="coordLon" type="text" inputmode="decimal" placeholder="e.g. 120.9842">
+            </label>
+            <button class="home-btn home-btn-amber" id="btnCoordGo">
+              <span class="material-symbols-rounded" style="font-size:16px;">search</span>
+              Search
+            </button>
+          </div>
+          <button class="home-dms-toggle" id="btnDmsToggle">Degree Minute Second</button>
+          <p class="home-coords-hint">Decimal degrees within 4°N–22°N, 116°E–128°E · or DMS like <em>14 35 58 N, 120 59 03 E</em></p>
+          <p class="home-coords-err" id="coordErr" hidden></p>
+        </div>
+
+        <button class="home-btn home-btn-go" id="btnGoMap">
+          <span class="material-symbols-rounded" style="font-size:16px;">map</span>
+          Go to Map View
+        </button>
+
+        <div class="home-stats">
+          <div class="gis-stat-pill">
+            <span class="material-symbols-rounded" style="color:var(--c-brass-600);">database</span>
+            <div><div class="gis-stat-value">68,545</div><div class="gis-stat-label">Total Events Analyzed</div></div>
+          </div>
+          <div class="gis-stat-pill">
+            <span class="material-symbols-rounded" style="color:var(--c-crimson);">offline_bolt</span>
+            <div><div class="gis-stat-value">7.8</div><div class="gis-stat-label">Max Magnitude</div></div>
+          </div>
+          <div class="gis-stat-pill">
+            <span class="material-symbols-rounded" style="color:var(--c-navy-800);">analytics</span>
+            <div><div class="gis-stat-value">4.83</div><div class="gis-stat-label">Average Magnitude</div></div>
+          </div>
+        </div>
+
+        <div class="home-about">
+          <p>QuakeSpots is the country's one-stop shop for seismic hazard assessment.</p>
+          <p>Find out if a location is prone to high-magnitude swarms, spatial outliers, or persistent hot spots. Generate hazard insight from Getis-Ord Gi*, Anselin Local Moran's I, and Emerging Hot Spot Analysis.</p>
+          <p>All hazard information used for assessment has been generated from the historical earthquake catalog.</p>
+          <p>Know more about QuakeSpots <a href="#methodology" id="linkHomeMethod">here</a>.</p>
+        </div>
+
+        <div class="home-powered">
+          <span>Powered by:</span>
+          <div class="home-powered-badges">
+            <span class="material-banner-pill">Leaflet · Canvas</span>
+            <span class="material-banner-pill">Esri Basemaps</span>
+            <span class="material-banner-pill">OpenStreetMap</span>
+            <span class="material-banner-pill">PHIVOLCS Catalog</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ==========================================================================
        VIEW 1: INTERACTIVE GIS SPATIAL MAP
        ========================================================================== -->
-  <main id="view-gis" class="view-section active">
+  <main id="view-gis" class="view-section">
     <div class="portal-container">
 
       <!-- Institutional Banner -->
@@ -117,7 +216,7 @@
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
             Fullscreen Map
           </button>
-          <a href="quakespots3.html" target="_blank" class="action-btn">
+          <a href="map.html" target="_blank" class="action-btn">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
             Open Standalone
           </a>
@@ -128,8 +227,8 @@
       <div class="gis-container" id="gisMapContainer">
         <div class="gis-loader" id="gisLoader">
           <div class="spinner"></div>
-          <p style="font-size: 15px; font-weight: 700; color: #FFFFFF;">Loading 68,545 Earthquake Markers & Spatial Heatmaps...</p>
-          <p style="font-size: 11.5px; opacity: 0.75;">Rendering Esri Dark Canvas Basemap, KDE Gradients, Getis-Ord Gi*, and Anselin Local Moran's I</p>
+          <p style="font-size: 15px; font-weight: 700; color: #FFFFFF;">Loading clustered catalog & science layers on demand…</p>
+          <p style="font-size: 11.5px; opacity: 0.75;" id="gisLoadDetail">Fetching 13,709 clustered markers (canvas rendering)</p>
         </div>
         <iframe id="gisMapIframe" class="gis-iframe" title="QuakeSpots GIS Map"></iframe>
       </div>
@@ -190,7 +289,7 @@
           ACADEMIC DEFENSE WHITE PAPER: GEOSPATIAL METHODOLOGY
         </h2>
         <div class="material-banner-meta">
-          <span class="material-banner-pill">Candidate: Alwinson Bustamante</span>
+          <span class="material-banner-pill">Academic Defense Project</span>
           <span class="material-banner-pill">Discipline: GIS & Spatial Data Science</span>
         </div>
       </div>
@@ -365,7 +464,7 @@ for i, nbrs in enumerate(neighbors):
         <span class="material-symbols-rounded footer-crest">shield</span>
         <div class="footer-text">
           <strong>QuakeSpots GIS Spatial Analysis Portal</strong> · Philippine Seismic Intelligence<br>
-          Student Researcher: <strong>Alwinson Bustamante</strong> · Academic Defense Project
+          Student Research Project · Academic Defense
         </div>
       </div>
       <div class="footer-text" style="text-align: right;">

@@ -1,6 +1,5 @@
 # QuakeSpots GIS Spatial Analysis Portal
 
-**Student Researcher:** Alwinson Bustamante  
 **Academic Field:** Geospatial Information Systems (GIS) & Spatial Econometrics  
 **Repository:** [https://github.com/AlwinsonTGM/QuakeSpots.git](https://github.com/AlwinsonTGM/QuakeSpots.git)  
 
@@ -26,13 +25,18 @@ It provides an interactive cartographic interface paired with academic spatial e
 
 ```
 quakespots/
-├── index.html                  # Executive Portal Shell (Tabs, Telemetry, Methodology)
-├── quakespots3.html            # 68,545-marker Interactive Leaflet GIS Map (~83.5MB)
+├── index.html                  # Portal shell (Home entry, GIS view, Methodology)
+├── map.html                    # Lightweight canvas GIS map (lazy layers, sidebar)
+├── quakespots3.legacy.html     # Original 80MB Folium export (local reference only)
 ├── assets/
 │   ├── css/
 │   │   └── executive-theme.css # Stately executive editorial design system
-│   └── js/
-│       └── app.js              # View switcher, hash router, lazy loader, fullscreen
+│   ├── js/
+│   │   ├── app.js              # Router, homepage search, map bridge, fullscreen
+│   │   └── map.js              # Canvas map runtime (cluster, basemaps, postMessage)
+│   └── data/
+│       ├── manifest.json       # Layer counts + file index
+│       └── *.json              # 23 chunked layers (3.2MB total, loaded on demand)
 ├── deploy.bat                  # 1-Click GitHub Pages deployment script
 ├── DEPLOY_GITHUB_PAGES.md      # Step-by-step GitHub deployment guide
 ├── .gitignore                  # Git ignore rules
@@ -48,7 +52,8 @@ Ensure Apache is running in the XAMPP Control Panel, then open:
 ```text
 http://localhost/quakespots/
 ```
-Or double-click `index.html` directly in any modern browser.
+> The map loads its data via `fetch`, so it must run over HTTP (XAMPP Apache).
+> Double-clicking `index.html` directly will show a data-loading error.
 
 ### GitHub Pages Deployment
 Run `deploy.bat` or push manually:

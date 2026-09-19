@@ -14,11 +14,13 @@ if not exist ".git" (
     git remote add origin https://github.com/AlwinsonTGM/QuakeSpots.git
 )
 
-echo [2/4] Staging project files (including quakespots3.html ~83.5MB)...
-git add index.html quakespots3.html assets README.md deploy.bat DEPLOY_GITHUB_PAGES.md .gitignore
+echo [2/4] Staging project files (homepage + fast map + chunked data)...
+git add index.html map.html assets README.md deploy.bat DEPLOY_GITHUB_PAGES.md .gitignore
+git rm --cached -q quakespots3.html 2>nul
+git rm --cached -q quakespots3.legacy.html 2>nul
 
 echo [3/4] Creating deployment commit...
-git commit -m "Deploy: QuakeSpots GIS Spatial Analysis Portal by Alwinson Bustamante"
+git commit -m "Deploy: QuakeSpots GIS Spatial Analysis Portal"
 
 echo [4/4] Pushing to GitHub (origin main)...
 git push -u origin main

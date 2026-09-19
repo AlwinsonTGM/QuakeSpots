@@ -1,0 +1,98 @@
+{
+ "layers": {
+  "mag_45_46": {
+   "file": "data/mag_45_46.json",
+   "count": 2959
+  },
+  "mag_46_48": {
+   "file": "data/mag_46_48.json",
+   "count": 4440
+  },
+  "mag_48_50": {
+   "file": "data/mag_48_50.json",
+   "count": 2750
+  },
+  "mag_gt50": {
+   "file": "data/mag_gt50.json",
+   "count": 3560
+  },
+  "ehsa_intensifying": {
+   "file": "data/ehsa_intensifying.json",
+   "count": 913
+  },
+  "ehsa_persistent": {
+   "file": "data/ehsa_persistent.json",
+   "count": 1787
+  },
+  "ehsa_sporadic": {
+   "file": "data/ehsa_sporadic.json",
+   "count": 2098
+  },
+  "ehsa_cold": {
+   "file": "data/ehsa_cold.json",
+   "count": 8911
+  },
+  "gi_hot99": {
+   "file": "data/gi_hot99.json",
+   "count": 950
+  },
+  "gi_hot95": {
+   "file": "data/gi_hot95.json",
+   "count": 589
+  },
+  "gi_hot90": {
+   "file": "data/gi_hot90.json",
+   "count": 451
+  },
+  "gi_ns": {
+   "file": "data/gi_ns.json",
+   "count": 8770
+  },
+  "gi_cold90": {
+   "file": "data/gi_cold90.json",
+   "count": 465
+  },
+  "gi_cold95": {
+   "file": "data/gi_cold95.json",
+   "count": 850
+  },
+  "gi_cold99": {
+   "file": "data/gi_cold99.json",
+   "count": 1634
+  },
+  "moran_hh": {
+   "file": "data/moran_hh.json",
+   "count": 2449
+  },
+  "moran_ll": {
+   "file": "data/moran_ll.json",
+   "count": 4562
+  },
+  "moran_hl": {
+   "file": "data/moran_hl.json",
+   "count": 2349
+  },
+  "moran_lh": {
+   "file": "data/moran_lh.json",
+   "count": 4348
+  },
+  "moran_ns": {
+   "file": "data/moran_ns.json",
+   "count": 1
+  },
+  "cluster": {
+   "file": "data/cluster.json",
+   "count": 13709
+  }
+ },
+ "heat": {
+  "heat_freq": {
+   "file": "data/heat_freq.json",
+   "count": 13709
+  },
+  "heat_energy": {
+   "file": "data/heat_energy.json",
+   "count": 13709
+  }
+ }
+}

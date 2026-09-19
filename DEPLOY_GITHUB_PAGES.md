@@ -1,6 +1,6 @@
 # QuakeSpots GIS Portal - Deployment Guide
 
-This guide provides instructions for **Alwinson Bustamante** to publish the standalone **QuakeSpots GIS Portal** to GitHub Pages.
+This guide provides instructions to publish the standalone **QuakeSpots GIS Portal** to GitHub Pages.
 
 **Repository:** [https://github.com/AlwinsonTGM/QuakeSpots.git](https://github.com/AlwinsonTGM/QuakeSpots.git)
 
@@ -12,8 +12,9 @@ Simply double-click the **`deploy.bat`** file located inside `c:\xampp\htdocs\qu
 
 It will automatically:
 1. Initialize the local Git repository and attach the origin remote.
-2. Stage all files (including the 83.5MB `quakespots3.html` interactive Leaflet map).
-3. Commit and push directly to `main`.
+2. Stage the fast site files (`index.html`, `map.html`, `assets/` incl. chunked data).
+3. Untrack the legacy 80MB `quakespots3*.html` Folium export (kept locally only).
+4. Commit and push directly to `main`.
 
 ---
 
@@ -30,14 +31,14 @@ git branch -M main
 git remote add origin https://github.com/AlwinsonTGM/QuakeSpots.git
 
 # 3. Stage and commit files
-git add index.html quakespots3.html assets README.md deploy.bat DEPLOY_GITHUB_PAGES.md .gitignore
+git add index.html map.html assets README.md deploy.bat DEPLOY_GITHUB_PAGES.md .gitignore
 git commit -m "Deploy: QuakeSpots GIS Spatial Analysis Portal"
 
 # 4. Push to GitHub
 git push -u origin main
 ```
 
-*(Note: `quakespots3.html` is ~83.5MB, safely within GitHub's 100MB per-file upload limit).*
+*(Note: the site now ships as ~3.7MB of chunked JSON + a lightweight map — no more 80MB single file, safely within GitHub limits).*
 
 ---
 
