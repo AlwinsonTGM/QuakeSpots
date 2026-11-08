@@ -13,6 +13,11 @@
 
   <!-- Stately Executive Design System -->
   <link rel="stylesheet" href="assets/css/executive-theme.css">
+
+  <!-- KaTeX Academic Formula Typography Engine -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" crossorigin="anonymous" onload="if (window.initMathRendering) window.initMathRendering();"></script>
 </head>
 <body>
 
@@ -241,7 +246,7 @@
             <span class="layer-card-title">Hot Spot Analysis</span>
           </div>
           <p class="layer-card-desc">
-            Statistically significant spatial clustering ($z > +2.58$, 99% confidence) identifying severe seismic hazard zones along active trenches and fault splays.
+            Statistically significant spatial clustering (<span class="math-inline">\( z &gt; +2.58 \)</span>, 99% confidence, \( p &lt; 0.01 \)) identifying severe seismic hazard zones along active trenches and fault splays.
           </p>
         </div>
         <div class="layer-card">
@@ -321,26 +326,100 @@
         <div class="doc-card">
           <div class="doc-header">
             <div class="doc-icon-badge">2</div>
-            <h2>Getis-Ord $G_i^*$ Spatial Statistics (Hot Spot Analysis)</h2>
+            <h2>Getis-Ord G<sub>i</sub><sup>*</sup> Spatial Statistics (Hot Spot Analysis)</h2>
           </div>
           <div class="doc-content">
             <p>
-              Identifies statistically significant spatial clusters of high magnitude values (hot spots) and low magnitude values (cold spots) using the local $G_i^*$ statistic:
+              Identifies statistically significant spatial clusters of high magnitude seismic events (hot spots) and low magnitude tremors (cold spots) using the local Getis-Ord G<sub>i</sub><sup>*</sup> statistic:
             </p>
-            <div class="formula-box">
-G_i^*(d) = \frac{\sum_{j=1}^n w_{ij}(d) x_j - \bar{X} \sum_{j=1}^n w_{ij}(d)}{S \sqrt{\frac{n \sum_{j=1}^n w_{ij}^2(d) - (\sum_{j=1}^n w_{ij}(d))^2}{n - 1}}}
+
+            <!-- Academic Formula Presentation Card -->
+            <div class="formula-card">
+              <div class="formula-card-top">
+                <span class="formula-chip"><span class="material-symbols-rounded" style="font-size:14px;">functions</span> Spatial Hot Spot Statistic</span>
+                <span class="formula-target">Standardized Normal Score \( z \sim \mathcal{N}(0, 1) \)</span>
+              </div>
+
+              <div class="formula-display">
+                \[
+                G_i^*(d) = \frac{\displaystyle\sum_{j=1}^n w_{ij}(d) x_j - \bar{X} \sum_{j=1}^n w_{ij}(d)}{S \sqrt{\dfrac{n \displaystyle\sum_{j=1}^n w_{ij}^2(d) - \left(\displaystyle\sum_{j=1}^n w_{ij}(d)\right)^2}{n - 1}}}
+                \]
+              </div>
+
+              <!-- Mathematical Anatomy Breakdown -->
+              <div class="formula-anatomy">
+                <div class="anatomy-block">
+                  <span class="anatomy-tag anatomy-numerator">Numerator · Observed Local Discrepancy</span>
+                  Local weighted sum \( \sum w_{ij} x_j \) minus expected random sum \( \bar{X}\sum w_{ij} \). Measures how much the local magnitude neighborhood deviates from global randomness.
+                </div>
+                <div class="anatomy-block">
+                  <span class="anatomy-tag anatomy-denominator">Denominator · Spatial Standard Error</span>
+                  Global standard deviation \( S \) multiplied by the geometric variance of spatial weights under the null hypothesis of complete spatial randomness (CSR).
+                </div>
+              </div>
+
+              <!-- Parameter Definition Matrix -->
+              <div class="param-table-wrapper">
+                <table class="param-table">
+                  <thead>
+                    <tr>
+                      <th style="width: 140px;">Parameter</th>
+                      <th>Mathematical & Geospatial Definition</th>
+                      <th style="width: 180px;">Project Value / Role</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><strong>\( G_i^*(d) \)</strong></td>
+                      <td>Local Getis-Ord standardized z-score for seismic event \( i \) at distance cutoff \( d \)</td>
+                      <td><span class="param-pill">Standardized Z-Score</span></td>
+                    </tr>
+                    <tr>
+                      <td><strong>\( x_j \)</strong></td>
+                      <td>Moment magnitude (\( M_w \)) of seismic event \( j \)</td>
+                      <td><span class="param-pill">Continuous Variable</span></td>
+                    </tr>
+                    <tr>
+                      <td><strong>\( w_{ij}(d) \)</strong></td>
+                      <td>Spatial weight between event \( i \) and \( j \) based on distance threshold \( d \)</td>
+                      <td><span class="param-pill">SciPy KD-Tree Matrix</span></td>
+                    </tr>
+                    <tr>
+                      <td><strong>\( \bar{X} \)</strong></td>
+                      <td>Global mean magnitude across all catalog events</td>
+                      <td><span class="param-pill">\( \bar{X} \approx 4.31 \)</span></td>
+                    </tr>
+                    <tr>
+                      <td><strong>\( S \)</strong></td>
+                      <td>Global sample standard deviation of magnitudes</td>
+                      <td><span class="param-pill">\( S \approx 0.74 \)</span></td>
+                    </tr>
+                    <tr>
+                      <td><strong>\( n \)</strong></td>
+                      <td>Total population of Philippine earthquake records evaluated</td>
+                      <td><span class="param-pill">68,545 records</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
-            <p>
-              Where:
-            </p>
-            <ul>
-              <li>$x_j$ is the magnitude of seismic event $j$.</li>
-              <li>$w_{ij}(d)$ is the spatial weight between event $i$ and event $j$ based on distance threshold $d$.</li>
-              <li>$\bar{X}$ is the global mean magnitude and $S$ is the standard deviation.</li>
-            </ul>
-            <p>
-              <strong>Statistical Significance:</strong> Points with z-scores $> +2.58$ ($p < 0.01$) represent <strong>Hot Spots at 99% Confidence</strong> (crimson markers), indicating high-magnitude swarms. Points with $z < -2.58$ represent <strong>Cold Spots at 99% Confidence</strong> (deep blue markers), representing clusters of minor low-magnitude tremors.
-            </p>
+
+            <!-- Statistical Confidence Matrix -->
+            <p><strong>Statistical Significance &amp; Confidence Thresholds:</strong></p>
+            <div class="significance-grid">
+              <div class="sig-badge sig-hot">
+                <div class="sig-val">\( z &gt; +2.58 \) · \( p &lt; 0.01 \)</div>
+                <div class="sig-desc"><strong>Hot Spot (99% Confidence):</strong> Statistically significant cluster of severe, high-magnitude swarms along active trenches and subduction zones (crimson markers).</div>
+              </div>
+              <div class="sig-badge sig-neutral">
+                <div class="sig-val">\( -1.96 \le z \le +1.96 \)</div>
+                <div class="sig-desc"><strong>Not Significant:</strong> Background seismic distribution consistent with spatial randomness without distinct clustering.</div>
+              </div>
+              <div class="sig-badge sig-cold">
+                <div class="sig-val">\( z &lt; -2.58 \) · \( p &lt; 0.01 \)</div>
+                <div class="sig-desc"><strong>Cold Spot (99% Confidence):</strong> Statistically significant cluster of minor low-magnitude micro-tremors (deep blue markers).</div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -372,11 +451,53 @@ G_i^*(d) = \frac{\sum_{j=1}^n w_{ij}(d) x_j - \bar{X} \sum_{j=1}^n w_{ij}(d)}{S 
                 Low-magnitude event surrounded by high values. May represent a seismic gap accumulating elastic strain adjacent to an active cluster.
               </div>
             </div>
-            <p>
-              The Local Moran's statistic is defined as:
-            </p>
-            <div class="formula-box">
-I_i = \frac{z_i - \bar{z}}{s^2} \sum_{j=1}^n w_{ij} (z_j - \bar{z})
+
+            <!-- LISA Formula Card -->
+            <div class="formula-card">
+              <div class="formula-card-top">
+                <span class="formula-chip"><span class="material-symbols-rounded" style="font-size:14px;">hub</span> Local Moran's Statistic</span>
+                <span class="formula-target">Spatial Autocorrelation Index \( I_i \)</span>
+              </div>
+
+              <div class="formula-display">
+                \[
+                I_i = \frac{z_i - \bar{z}}{s^2} \sum_{j=1}^n w_{ij} (z_j - \bar{z})
+                \]
+              </div>
+
+              <div class="param-table-wrapper">
+                <table class="param-table">
+                  <thead>
+                    <tr>
+                      <th style="width: 140px;">Parameter</th>
+                      <th>Geospatial Definition</th>
+                      <th style="width: 180px;">Role in Algorithm</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><strong>\( I_i \)</strong></td>
+                      <td>Local Moran's autocorrelation index for earthquake epicenter \( i \)</td>
+                      <td><span class="param-pill">Quadrant Classifier</span></td>
+                    </tr>
+                    <tr>
+                      <td><strong>\( z_i - \bar{z} \)</strong></td>
+                      <td>Magnitude deviation of focal earthquake \( i \) relative to the nationwide mean</td>
+                      <td><span class="param-pill">Focal Magnitude Offset</span></td>
+                    </tr>
+                    <tr>
+                      <td><strong>\( s^2 \)</strong></td>
+                      <td>Sample variance of seismic magnitudes across all Philippine catalog records</td>
+                      <td><span class="param-pill">Variance Normalizer</span></td>
+                    </tr>
+                    <tr>
+                      <td><strong>\( w_{ij} \)</strong></td>
+                      <td>Row-standardized spatial contiguity / distance weight matrix element</td>
+                      <td><span class="param-pill">Spatial Neighbor Weight</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
@@ -412,8 +533,33 @@ I_i = \frac{z_i - \bar{z}}{s^2} \sum_{j=1}^n w_{ij} (z_j - \bar{z})
             </p>
             <ul>
               <li><strong>Spatial Frequency (Event Density):</strong> Pure occurrence rate quantifying where earthquakes happen most frequently regardless of energy.</li>
-              <li><strong>Moment Magnitude Energy Release:</strong> Energy-weighted density via seismic moment release $M_0$ where $\log_{10}(E) = 4.8 + 1.5 M$. Because an M7 earthquake releases approximately $31.6\times$ more energy than an M6, this weighting isolates true destructive epicenters.</li>
+              <li><strong>Moment Magnitude Energy Release:</strong> Energy-weighted density via seismic moment release \( M_0 \) modeled through the Gutenberg-Richter energy equation:</li>
             </ul>
+
+            <!-- Gutenberg-Richter Energy Release Formula Card -->
+            <div class="formula-card">
+              <div class="formula-card-top">
+                <span class="formula-chip"><span class="material-symbols-rounded" style="font-size:14px;">bolt</span> Gutenberg-Richter Relation</span>
+                <span class="formula-target">Radiated Seismic Energy \( E \) in Joules</span>
+              </div>
+
+              <div class="formula-display">
+                \[
+                \log_{10}(E) = 4.8 + 1.5 M \implies E = 10^{4.8 + 1.5 M} \text{ Joules}
+                \]
+              </div>
+
+              <div class="formula-anatomy">
+                <div class="anatomy-block">
+                  <span class="anatomy-tag anatomy-numerator">Logarithmic Energy Scaling</span>
+                  Every \( +1.0 \) increase in moment magnitude scales radiated energy by \( 10^{1.5} \approx 31.62\times \).
+                </div>
+                <div class="anatomy-block">
+                  <span class="anatomy-tag anatomy-denominator">Geospatial Hazard Implication</span>
+                  A single \( M7.0 \) tremor releases more destructive energy than thirty-one \( M6.0 \) events combined, justifying energy-weighted KDE over simple count density.
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 

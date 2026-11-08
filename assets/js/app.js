@@ -9,6 +9,11 @@ document.addEventListener('DOMContentLoaded', () => {
   initShareAction();
   initMapBridge();
   handleInitialHash();
+  initMathRendering();
+});
+
+window.addEventListener('load', () => {
+  initMathRendering();
 });
 
 /* ================= View Switching Engine ================= */
@@ -32,6 +37,7 @@ function switchView(viewName) {
   if (target) target.classList.add('active');
   if (history.replaceState) history.replaceState(null, null, `#${viewName}`);
   if (viewName === 'gis') lazyLoadGISMap();
+  if (viewName === 'methodology') initMathRendering();
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -255,6 +261,27 @@ function handleInitialHash() {
   else switchView('home');
 }
 
+/* ================= KaTeX Academic Formula Renderer ================= */
+function initMathRendering() {
+  if (typeof renderMathInElement === 'function') {
+    try {
+      renderMathInElement(document.body, {
+        delimiters: [
+          { left: '$$', right: '$$', display: true },
+          { left: '\\[', right: '\\]', display: true },
+          { left: '$', right: '$', display: false },
+          { left: '\\(', right: '\\)', display: false }
+        ],
+        ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+        throwOnError: false
+      });
+    } catch (err) {
+      console.warn('KaTeX math rendering notice:', err);
+    }
+  }
+}
+
 window.switchView = switchView;
 window.toggleMapFullscreen = toggleMapFullscreen;
 window.showToast = showToast;
+window.initMathRendering = initMathRendering;
